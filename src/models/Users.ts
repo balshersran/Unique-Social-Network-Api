@@ -1,22 +1,11 @@
-import { Schema, Types, model, type Document } from 'mongoose';
-
-
-interface IThoughts extends Document {
-    thoughtID: Schema.Types.ObjectId
-}
+import { Schema, model, type Document } from 'mongoose';
 
 interface IUser extends Document {
     username: string,
     email: string,
     thoughts: Schema.Types.ObjectId[],
+    friends: Schema.Types.ObjectId[],
 }
-
-const thoughtsSchema = new Schema<IThoughts> ({
-    thoughtID: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
-    }
-})
 
 const usersSchema = new Schema<IUser>({
     username: {
@@ -29,8 +18,16 @@ const usersSchema = new Schema<IUser>({
         type: String,
         required: true,
         unique: true,
+        match: [/.+@.+\..+/, 'Please input valid email address']
     },
-    thoughts: [thoughtsSchema],
+    thoughts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Thoughts',
+    }],
+    friends: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+    }],
 },
     {
         toJSON: {
@@ -40,16 +37,12 @@ const usersSchema = new Schema<IUser>({
 );
 
 usersSchema
-  .virtual('friendCount')
-  // Getter
-  // need to return the length of friends on friends list 
-  .get(function () {
-    return ;
-  })  // set number of friends on list to display 
-  .set(function () {
-    
-  });
-
+    .virtual('friendCount')
+    // Getter
+    // need to return the length of friends on friends list 
+    .get(function () {
+        return this.friends.length;
+    })
 // Initialize our User model
 const Users = model('users', usersSchema);
 

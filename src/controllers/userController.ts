@@ -51,7 +51,7 @@ import { Users } from '../models/index.js'
       }
 
 //       await Thoughts.deleteMany({ _id: { $in: user.thoughts } });
-      res.json({ message: 'User and associated thoughts deleted!' })
+      res.json({ message: 'User deleted!' })
       return;
     } catch (err) {
       res.status(500).json(err);
