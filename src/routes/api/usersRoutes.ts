@@ -3,6 +3,7 @@ import { createUser, deleteUser, getSingleUser, getUsers } from "../../controlle
 const router = Router();
 
 router.route('/').get(getUsers);
+router.route('/').get(getSingleUser);
 router.route('/').post(createUser);
 router.route('/:userId').get(getSingleUser).delete(deleteUser);
 
