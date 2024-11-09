@@ -1,6 +1,6 @@
 // import { Thoughts , Users } from '../models/index.js';
 import { Request, Response } from 'express';
-import { Users } from '../models/index.js'
+import { Users, Thoughts } from '../models/index.js'
 
 
   // Get all users
@@ -41,7 +41,7 @@ import { Users } from '../models/index.js'
     }
   }
 
-//   // Delete a user and associated apps
+//   // Delete a user and associated thoughts
   export const deleteUser = async (req: Request, res: Response) => {
     try {
       const user = await Users.findOneAndDelete({ _id: req.params.userId });
@@ -50,7 +50,7 @@ import { Users } from '../models/index.js'
         return res.status(404).json({ message: 'No user with that ID' });
       }
 
-//       await Thoughts.deleteMany({ _id: { $in: user.thoughts } });
+      await Thoughts.deleteMany({ _id: { $in: user.thoughts } });
       res.json({ message: 'User deleted!' })
       return;
     } catch (err) {
