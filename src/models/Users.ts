@@ -1,10 +1,10 @@
 import { Schema, model, type Document } from 'mongoose';
 
 interface IUser extends Document {
-    username: string,
-    email: string,
-    thoughts: Schema.Types.ObjectId[],
-    friends: Schema.Types.ObjectId[],
+    username: string;
+    email: string;
+    thoughts: Schema.Types.ObjectId[];
+    friends: Schema.Types.ObjectId[];
 }
 
 const usersSchema = new Schema<IUser>({
@@ -44,6 +44,6 @@ usersSchema
         return this.friends.length;
     })
 // Initialize our User model
-const Users = model('users', usersSchema);
+const Users = model('Users', usersSchema);
 
 export default Users;

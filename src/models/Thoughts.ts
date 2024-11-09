@@ -1,17 +1,17 @@
 import { Schema, Types, model , type Document } from 'mongoose';
 
 interface IThought extends Document {
-    thoughtText: String,
-    createdAt: Date,
-    username: String,
-    reactions: Schema.Types.ObjectId[],
+    thoughtText: String;
+    createdAt: Date;
+    username: String;
+    reactions: Schema.Types.ObjectId[];
 }
 
 interface IReactions extends Document {
-    reactionId: Schema.Types.ObjectId,
-    reactionBody: String,
-    username: String,
-    createdAt: Date,
+    reactionId: Schema.Types.ObjectId;
+    reactionBody: String;
+    username: String;
+    createdAt: Date;
 }
 
 const reactionSchema = new Schema<IReactions> ({
