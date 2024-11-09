@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, deleteUser, getSingleUser, getUsers } from "../../controllers/userController.js";
+import { addFriend, createUser, deleteFriend, deleteUser, getSingleUser, getUsers } from "../../controllers/userController.js";
 const router = Router();
 
 // /api/users
@@ -11,5 +11,11 @@ router.route('/').get(getSingleUser);
 router.route('/').post(createUser);
 // get a single user, delete that single user 
 router.route('/:userId').get(getSingleUser).delete(deleteUser);
+
+// make a route to add friends
+router.route('/:userId/friends').get(getSingleUser).post(addFriend);
+
+// make a route to delete a friend
+router.route('/:userId/friends/:friendId').get(getSingleUser).delete(deleteFriend);
 
 export { router as usersRouter };
