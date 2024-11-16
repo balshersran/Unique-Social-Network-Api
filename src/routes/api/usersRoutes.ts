@@ -13,7 +13,7 @@ router.route('/').post(createUser);
 router.route('/:userId').get(getSingleUser).delete(deleteUser);
 
 // make a route to add friends
-router.route('/:userId/friends').get(getSingleUser).post(addFriend);
+router.route('/:userId/friends/:friendId').get(getSingleUser).post(addFriend);
 
 // make a route to delete a friend
 router.route('/:userId/friends/:friendId').delete(deleteFriend);
