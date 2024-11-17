@@ -23,12 +23,9 @@ export const getSingleUser = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ message: 'No user with that ID' });
     }
-
-    res.json(user);
-    return;
+    return res.json(user);
   } catch (err) {
-    res.status(500).json(err);
-    return;
+    return res.status(500).json(err);
   }
 }
 
@@ -36,9 +33,9 @@ export const getSingleUser = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     const user = await Users.create(req.body);
-    res.json(user);
+    return res.json(user);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 }
 
@@ -51,35 +48,31 @@ export const deleteUser = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'No user with that ID' });
     }
 
-    res.json({ message: 'User deleted!' })
-    return;
+    return res.json({ message: 'User deleted!' })
   } catch (err) {
-    res.status(500).json(err);
-    return;
+    return res.status(500).json(err);
   }
 }
 
-export const addFriend = async (req: Request, res: Response, { _id }: any) => {
+export const addFriend = async (req: Request, res: Response) => {
   try {
-    const user = await Users.findById( _id );
-    res.json(user);
+    const user = await Users.findById(req.params.userId);
+    let friend;
 
     if (user) {
-    const friend = await Users.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $addToSet: { friends: req.params.friendId } },
-      { runValidators: true, new: true },
-    );
-    console.log(friend);
-    if (!friend) {
-      return res.status(404).json({ message: 'No user found by this ID, error adding friend'})
+      friend = await Users.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: { friends: req.params.friendId } },
+        { runValidators: true, new: true },
+      );
+
+      if (!friend) {
+        return res.status(404).json({ message: 'No user found by this ID, error adding friend' })
+      }
     }
-    res.json(friend);
-  }
-    return;
+    return res.json(friend);
   } catch (error) {
-    res.status(500).json({ message: 'Error adding Friend' });
-    return;
+    return res.status(500).json({ message: 'Error adding Friend' });
   }
 }
 
@@ -87,18 +80,16 @@ export const deleteFriend = async (req: Request, res: Response) => {
   try {
     const friend = await Users.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: { userId: req.params.userId }}},
-      { runValidators: true, new: true},
+      { $pull: { friends: { userId: req.params.userId } } },
+      { runValidators: true, new: true },
     )
 
     if (!friend) {
-      return res.status(404).json({ message: 'No Friend found by this ID'})
+      return res.status(404).json({ message: 'No Friend found by this ID' })
     }
 
-    res.json(friend);
-    return;
+    return res.json(friend);
   } catch (error) {
-    res.status(500).json(error);
-    return;
+    return res.status(500).json(error);
   }
 }

@@ -4,16 +4,13 @@ const router = Router();
 
 // /api/users
 // get all users
-router.route('/').get(getUsers);
-// get a single user
-router.route('/').get(getSingleUser);
-// create a new user
-router.route('/').post(createUser);
+router.route('/').get(getUsers).post(createUser);
+
 // get a single user, delete that single user 
 router.route('/:userId').get(getSingleUser).delete(deleteUser);
 
 // make a route to add friends
-router.route('/:userId/friends/:friendId').get(getSingleUser).post(addFriend);
+router.route('/:userId/friends/:friendId').put(addFriend);
 
 // make a route to delete a friend
 router.route('/:userId/friends/:friendId').delete(deleteFriend);
