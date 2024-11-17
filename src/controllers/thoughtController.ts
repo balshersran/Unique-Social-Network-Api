@@ -17,7 +17,7 @@ export const getSingleThought = async (req: Request, res: Response) => {
         const thought = await Thoughts.findById(req.params.thoughtId);
 
         if (!thought) {
-            return res.json({message: 'No thought found'});
+            return res.json({ message: 'No thought found' });
         }
 
         return res.json(thought);

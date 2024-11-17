@@ -6,6 +6,6 @@ import { usersRouter } from './usersRoutes.js';
 const router = Router();
 
 router.use('/users', usersRouter);
-router.use('/thoughts', thoughtsRouter );
+router.use('/thoughts', thoughtsRouter);
 
 export default router;

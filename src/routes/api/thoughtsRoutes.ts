@@ -14,5 +14,4 @@ router.route('/:thoughtId/reaction').post(addReaction);
 // remove a reaction route
 router.route('/:thoughtId/reaction/:reactionId').delete(removeReaction);
 
-
-export { router as thoughtsRouter} 
+export { router as thoughtsRouter } 
